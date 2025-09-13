@@ -7,26 +7,30 @@ export default function Navbar() {
       <h1 className="text-xl font-bold">Career Recommender</h1>
       <div className="flex gap-6">
         <Link
-          to="/"
-          className="px-3 py-2 rounded hover:bg-blue-700 transition"
-        >
+          to="/" className="px-3 py-2 rounded hover:bg-blue-700 transition">
           Home
         </Link>
+
         <Link
-          to="/upload"
-          className="px-3 py-2 rounded hover:bg-blue-700 transition"
-        >
+          to="/upload" className="px-3 py-2 rounded hover:bg-blue-700 transition">
           Upload Resume
         </Link>
+
         <Link
           to="/recommend"
           className="px-3 py-2 rounded hover:bg-blue-700 transition"
         >
           Recommendations
         </Link>
+
         <Link 
           to="/about" className="hover:text-blue-600">
             About
+        </Link>
+
+        <Link 
+          to="/how-it-works" className="hover:text-blue-600">
+            How It Works
         </Link>
 
       </div>

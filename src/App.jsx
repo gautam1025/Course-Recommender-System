@@ -3,6 +3,7 @@ import Home from "./pages/Home";
 import UploadResume from "./pages/UploadResume";
 import Recommendations from "./pages/Recommendations";
 import About from "./pages/About" ;
+import HowItWorks from "./pages/HowItWorks";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/upload" element={<UploadResume />} />
         <Route path="/recommend" element={<Recommendations />} />
         <Route path ="/about" element={<About />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
       </Routes>
     </BrowserRouter>
   );
