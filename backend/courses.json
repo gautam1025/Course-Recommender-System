@@ -1,0 +1,156 @@
+[
+  {
+    "title": "Learn Python - Full Course for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+    "price": "Free",
+    "skills": ["python"]
+  },
+  {
+    "title": "Java Programming Masterclass",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/java-the-complete-java-developer-course/",
+    "price": "$15",
+    "skills": ["java"]
+  },
+  {
+    "title": "C++ Full Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=vLnPwxZdW4Y",
+    "price": "Free",
+    "skills": ["c++"]
+  },
+  {
+    "title": "C# Basics for Beginners",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/csharp-tutorial-for-beginners/",
+    "price": "$12",
+    "skills": ["c#"]
+  },
+  {
+    "title": "React Tutorial for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=SqcY0GlETPk",
+    "price": "Free",
+    "skills": ["react", "javascript"]
+  },
+  {
+    "title": "Full-Stack Open 2024",
+    "platform": "FreeCodeCamp",
+    "link": "https://fullstackopen.com/en/",
+    "price": "Free",
+    "skills": ["javascript", "react", "node", "mongodb"]
+  },
+  {
+    "title": "The Web Developer Bootcamp",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/the-web-developer-bootcamp/",
+    "price": "$15",
+    "skills": ["html", "css", "javascript", "node", "express"]
+  },
+  {
+    "title": "Python for Data Science and Machine Learning Bootcamp",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/python-for-data-science-and-machine-learning-bootcamp/",
+    "price": "$15",
+    "skills": ["python", "data science", "machine learning", "pandas", "numpy"]
+  },
+  {
+    "title": "Machine Learning Specialization",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/specializations/machine-learning-introduction",
+    "price": "$49/month",
+    "skills": ["machine learning", "python", "deep learning"]
+  },
+  {
+    "title": "Deep Learning with PyTorch",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=EMXfZB8FVUA",
+    "price": "Free",
+    "skills": ["deep learning", "pytorch"]
+  },
+  {
+    "title": "AWS Certified Solutions Architect - Full Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=Ia-UEYYR44s",
+    "price": "Free",
+    "skills": ["aws", "cloud"]
+  },
+  {
+    "title": "Azure Fundamentals Certification Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=NKEFWyqJ5XA",
+    "price": "Free",
+    "skills": ["azure", "cloud"]
+  },
+  {
+    "title": "Google Cloud Certification Training",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/professional-certificates/google-cloud",
+    "price": "$39/month",
+    "skills": ["gcp", "cloud"]
+  },
+  {
+    "title": "Docker and Kubernetes: The Complete Guide",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/",
+    "price": "$18",
+    "skills": ["docker", "kubernetes", "devops"]
+  },
+  {
+    "title": "Linux for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=sWbUDq4S6Y8",
+    "price": "Free",
+    "skills": ["linux"]
+  },
+  {
+    "title": "Git and GitHub Crash Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+    "price": "Free",
+    "skills": ["git", "github"]
+  },
+  {
+    "title": "Jenkins Essentials for DevOps",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/jenkins-essentials/",
+    "price": "$14",
+    "skills": ["jenkins", "devops"]
+  },
+  {
+    "title": "Tableau Full Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=TPMlZxRRaBQ",
+    "price": "Free",
+    "skills": ["tableau", "data visualization"]
+  },
+  {
+    "title": "Power BI A-Z",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/power-bi-a-z/",
+    "price": "$12",
+    "skills": ["power bi", "business intelligence"]
+  },
+  {
+    "title": "Introduction to Cybersecurity",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/intro-cyber-security",
+    "price": "$39/month",
+    "skills": ["cybersecurity", "network security"]
+  },
+  {
+    "title": "Blockchain Basics",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/blockchain-basics",
+    "price": "$39/month",
+    "skills": ["blockchain"]
+  },
+  {
+    "title": "Cryptography Basics",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=6rEIV3Nq1e4",
+    "price": "Free",
+    "skills": ["cryptography"]
+  }
+]
