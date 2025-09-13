@@ -1,40 +1,70 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
-    <nav className="bg-blue-600 text-white px-6 py-3 flex justify-between items-center shadow-md">
+<nav className="bg-purple-600 text-white px-6 py-3 flex justify-between items-center shadow-md">
+
+      {/* Logo / Title */}
       <h1 className="text-xl font-bold">Career Recommender</h1>
+
+      {/* Navigation Links */}
       <div className="flex gap-6">
-        <Link
-          to="/" className="px-3 py-2 rounded hover:bg-blue-700 transition">
+        <NavLink
+          to="/"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition ${
+              isActive ? "bg-blue-800" : "hover:bg-blue-700"
+            }`
+          }
+        >
           Home
-        </Link>
+        </NavLink>
 
-        <Link
-          to="/upload" className="px-3 py-2 rounded hover:bg-blue-700 transition">
+        <NavLink
+          to="/upload"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition ${
+              isActive ? "bg-blue-800" : "hover:bg-blue-700"
+            }`
+          }
+        >
           Upload Resume
-        </Link>
+        </NavLink>
 
-        <Link
+        <NavLink
           to="/recommend"
-          className="px-3 py-2 rounded hover:bg-blue-700 transition"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition ${
+              isActive ? "bg-blue-800" : "hover:bg-blue-700"
+            }`
+          }
         >
           Recommendations
-        </Link>
+        </NavLink>
 
-        <Link 
-          to="/about" className="hover:text-blue-600">
-            About
-        </Link>
+        <NavLink
+          to="/about"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition ${
+              isActive ? "bg-blue-800" : "hover:bg-blue-700"
+            }`
+          }
+        >
+          About
+        </NavLink>
 
-        <Link 
-          to="/how-it-works" className="hover:text-blue-600">
-            How It Works
-        </Link>
-
+        <NavLink
+          to="/how-it-works"
+          className={({ isActive }) =>
+            `px-3 py-2 rounded transition ${
+              isActive ? "bg-blue-800" : "hover:bg-blue-700"
+            }`
+          }
+        >
+          How It Works
+        </NavLink>
       </div>
     </nav>
   );
 }
-

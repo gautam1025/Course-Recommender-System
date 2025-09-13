@@ -39,7 +39,7 @@ export default function HowItWorks() {
           {steps.map((item) => (
             <div
               key={item.step}
-              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition"
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition hover:bg-blue-50"
             >
               <div className="text-5xl mb-4">{item.icon}</div>
               <h2 className="text-xl font-semibold mb-2">{item.title}</h2>

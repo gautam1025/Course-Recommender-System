@@ -31,7 +31,7 @@ export default function About() {
           It is designed to be extensible with future support for 
           APIs (YouTube, Udemy) and databases like MongoDB.
         </p>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md">
+        <div className="bg-gray-100 p-6 rounded-lg shadow-md transition transform hover:scale-80 hover:shadow-lg hover:bg-blue-50">
           <h2 className="text-xl font-semibold mb-2">Key Features:</h2>
           <ul className="list-disc list-inside text-left text-gray-700">
             <li>Resume parsing (PDF format)</li>
