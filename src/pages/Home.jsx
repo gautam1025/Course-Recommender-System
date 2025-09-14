@@ -1,17 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 text-white">
       {/* Navbar */}
       <Navbar />
 
       {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center text-center px-6 bg-gradient-to-r from-blue-500 to-purple-600 text-white py-20">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+      <main className="flex-1 flex flex-col items-center justify-center text-center px-6 py-20">
+        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
           AI-Powered Career & Course Recommender
         </h1>
         <p className="text-lg md:text-xl mb-6 max-w-2xl">
@@ -20,44 +19,37 @@ export default function Home() {
         </p>
         <Link
           to="/upload"
-          className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg shadow-md hover:scale-105 hover:shadow-lg transition transform duration-200"
+          className="px-6 py-3 bg-green-500/80 backdrop-blur-md text-white font-semibold rounded-full shadow-md hover:bg-green-600/80 transition"
         >
           Get Started
         </Link>
       </main>
 
       {/* Feature Cards */}
-      <section className="py-16 px-6 bg-gray-50">
-        <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">
-          How It Helps You
-        </h2>
+      <section className="py-16 px-6">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:bg-blue-50 transition transform hover:scale-105">
+          <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
             <div className="text-5xl mb-4">📄</div>
-            <h3 className="text-xl font-semibold mb-2">Upload Resume</h3>
-            <p className="text-gray-600">
-              Easily upload your resume in PDF format (max 5MB).
-            </p>
+            <h3 className="text-xl font-bold mb-2">Upload Resume</h3>
+            <p>Begin by uploading your resume as a PDF format.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:bg-blue-50 transition transform hover:scale-105">
+          <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
             <div className="text-5xl mb-4">🧠</div>
-            <h3 className="text-xl font-semibold mb-2">Skill Extraction</h3>
-            <p className="text-gray-600">
-              We identify your key skills and technologies using smart parsing.
-            </p>
+            <h3 className="text-xl font-bold mb-2">Skill Extraction</h3>
+            <p>We'll identify your core skills and tailor suggestions.</p>
           </div>
-          <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl hover:bg-blue-50 transition transform hover:scale-105">
+          <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
             <div className="text-5xl mb-4">🎯</div>
-            <h3 className="text-xl font-semibold mb-2">Personalized Courses</h3>
-            <p className="text-gray-600">
-              Get curated free & paid courses tailored to your career goals.
-            </p>
+            <h3 className="text-xl font-bold mb-2">Personalized Courses</h3>
+            <p>Get curated free & paid courses matched to your goals.</p>
           </div>
         </div>
       </section>
 
-      {/* Footer */}
-      <Footer />
+      {/* Footer - Transparent */}
+      <footer className="text-center py-4 text-sm text-white/80">
+        © {new Date().getFullYear()} Career Recommender. All rights reserved.
+      </footer>
     </div>
   );
 }

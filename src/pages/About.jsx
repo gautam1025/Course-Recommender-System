@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 
 export default function About() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 text-white">
       <Navbar />
 
       <main className="flex-1 px-6 py-12 max-w-3xl mx-auto text-center">
