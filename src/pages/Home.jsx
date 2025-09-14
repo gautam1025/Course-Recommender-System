@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Home() {
   return (
@@ -47,9 +48,8 @@ export default function Home() {
       </section>
 
       {/* Footer - Transparent */}
-      <footer className="text-center py-4 text-sm text-white/80">
-        © {new Date().getFullYear()} Career Recommender. All rights reserved.
-      </footer>
+      <Footer />
+
     </div>
   );
 }

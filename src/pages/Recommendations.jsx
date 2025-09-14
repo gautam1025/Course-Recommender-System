@@ -1,124 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import CourseCard from "../components/CourseCard";
 
 export default function Recommendations() {
-  const [allCourses, setAllCourses] = useState([]);
-  const [goal, setGoal] = useState("");
-  const [skills, setSkills] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
+  const location = useLocation();
+  const [courses, setCourses] = useState([]);
+  const [error, setError] = useState("");
+
+  const queryParams = new URLSearchParams(location.search);
+  const skills = queryParams.get("skills") || "";
+  const goal = queryParams.get("goal") || "";
 
   useEffect(() => {
-    setTimeout(() => {
-      const storedCourses =
-        JSON.parse(localStorage.getItem("recommendations")) || [];
-      const storedSkills = JSON.parse(localStorage.getItem("skills")) || [];
-      const storedGoal = localStorage.getItem("goal") || "";
+    const storedRecs = sessionStorage.getItem("recommendations");
 
-      if (!storedCourses.length && !storedSkills.length && !storedGoal) {
-        // ✅ Redirect back if nothing is stored
-        navigate("/upload");
-        return;
-      }
-
-      setAllCourses(storedCourses);
-      setSkills(storedSkills);
-      setGoal(storedGoal);
-      setLoading(false);
-    }, 800);
-  }, [navigate]);
-
-  const freeCourses = allCourses.filter(
-    (course) => course.price.toLowerCase() === "free"
-  );
-  const paidCourses = allCourses.filter(
-    (course) => course.price.toLowerCase() !== "free"
-  );
+    if (storedRecs) {
+      setCourses(JSON.parse(storedRecs));
+    } else {
+      setError("No recommendations found. Please upload your resume again.");
+    }
+  }, []);
 
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 text-white">
       <Navbar />
 
-      <main className="flex-1 px-6 py-10">
-        {loading ? (
-          <div className="flex justify-center items-center h-64">
-            <svg
-              className="animate-spin h-10 w-10 text-blue-600"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              ></circle>
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              ></path>
-            </svg>
-            <p className="ml-3 text-blue-600 font-medium">Loading courses...</p>
+      <main className="flex-1 flex flex-col items-center px-6 py-16">
+        <h2 className="text-3xl font-bold mb-6">Recommended Courses</h2>
+
+        {error && <p className="text-red-300">{error}</p>}
+
+        {!error && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full max-w-6xl">
+            {courses.length > 0 ? (
+              courses.map((course, index) => (
+                <div
+                  key={index}
+                  className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:scale-105 transition-transform"
+                >
+                  <h3 className="text-xl font-semibold mb-2">{course.title}</h3>
+                  <p className="text-sm mb-2">
+                    <span className="font-semibold">Platform:</span>{" "}
+                    {course.platform}
+                  </p>
+                  <p className="text-sm mb-2">
+                    <span className="font-semibold">Price:</span> {course.price}
+                  </p>
+                  <a
+                    href={course.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block mt-3 px-4 py-2 bg-blue-500/80 hover:bg-blue-600/90 rounded-full text-white transition"
+                  >
+                    View Course
+                  </a>
+                </div>
+              ))
+            ) : (
+              <p className="text-white/80">
+                No courses found for your skills ({skills}).
+              </p>
+            )}
           </div>
-        ) : (
-          <>
-            <h1 className="text-3xl font-bold text-center mb-6">
-              Recommended Courses
-            </h1>
-
-            <p className="text-center text-gray-600 mb-10">
-              Based on your goal:{" "}
-              <span className="font-semibold">{goal || "N/A"}</span>
-              <br />
-              Extracted Skills:{" "}
-              <span className="italic">
-                {skills.length > 0 ? skills.join(", ") : "N/A"}
-              </span>
-            </p>
-
-            {/* Free Courses */}
-            <section className="mb-12">
-              <h2 className="text-2xl font-semibold mb-4 text-green-600 text-center">
-                Free Courses
-              </h2>
-              {freeCourses.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {freeCourses.map((course, idx) => (
-                    <CourseCard key={idx} {...course} />
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center text-gray-600">
-                  No free courses found.
-                </p>
-              )}
-            </section>
-
-            {/* Paid Courses */}
-            <section>
-              <h2 className="text-2xl font-semibold mb-4 text-blue-600 text-center">
-                Paid Courses
-              </h2>
-              {paidCourses.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {paidCourses.map((course, idx) => (
-                    <CourseCard key={idx} {...course} />
-                  ))}
-                </div>
-              ) : (
-                <p className="text-center text-gray-600">
-                  No paid courses found.
-                </p>
-              )}
-            </section>
-          </>
         )}
       </main>
 

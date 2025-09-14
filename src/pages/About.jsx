@@ -7,43 +7,21 @@ export default function About() {
     <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 text-white">
       <Navbar />
 
-      <main className="flex-1 px-6 py-12 max-w-3xl mx-auto text-center">
-        <h1 className="text-3xl font-bold mb-6 text-blue-600">
-          About This Project
-        </h1>
-        <p className="text-lg text-gray-700 mb-4">
-          The <span className="font-semibold">AI-Powered Career & Course Recommender </span> 
-          is a final-year B.Tech project designed to help working professionals 
-          and students identify relevant courses for{" "}
-          <span className="font-semibold">upskilling, career growth or domain switching</span>.
-        </p>
-        <p className="text-lg text-gray-700 mb-4">
-          Users can upload their resume, and our system automatically extracts key 
-          <span className="font-semibold"> skills and technologies</span> using text analysis.
-          Based on these skills and the user’s career goals, the system recommends 
-          curated <span className="font-semibold">free (YouTube, FreeCodeCamp)</span> and 
-          <span className="font-semibold"> paid (Udemy, Coursera)</span> courses.
-        </p>
-        <p className="text-lg text-gray-700 mb-8">
-          The project is built with <span className="italic font-semibold" >React (Frontend)</span>, 
-          <span className="italic font-semibold"> Express.js (Backend) </span> 
-          and a structured database of skills and courses. 
-          It is designed to be extensible with future support for 
-          APIs (YouTube, Udemy) and databases like MongoDB.
-        </p>
-        <div className="bg-gray-100 p-6 rounded-lg shadow-md transition transform hover:scale-80 hover:shadow-lg hover:bg-blue-50">
-          <h2 className="text-xl font-semibold mb-2">Key Features:</h2>
-          <ul className="list-disc list-inside text-left text-gray-700">
-            <li>Resume parsing (PDF format)</li>
-            <li>Automatic skill extraction</li>
-            <li>Course recommendations (Free & Paid)</li>
-            <li>Clean and responsive UI with TailwindCSS</li>
-            <li>Future-ready (API & DB integration possible)</li>
-          </ul>
+      <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+        <div className="bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-md max-w-3xl text-center">
+          <h2 className="text-3xl font-bold mb-4">About This Project</h2>
+          <p className="text-white/80 leading-relaxed">
+            The Career Recommender is a final-year project designed to help working
+            professionals discover the best courses (free & paid) based on their
+            resumes, skills, and career goals. It uses resume parsing, skill
+            extraction, and personalized recommendations to guide users in upgrading
+            their careers.
+          </p>
         </div>
       </main>
 
       <Footer />
+
     </div>
   );
 }
