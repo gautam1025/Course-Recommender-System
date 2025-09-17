@@ -8,8 +8,10 @@ export default function HowItWorks() {
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+        
         <div className="bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-md max-w-3xl text-center">
-          <h2 className="text-3xl font-bold mb-4">How It Works</h2>
+          <h2 className="text-4xl font-bold mb-4 text-yellow-300">How It Works</h2>
+          
           <ul className="list-decimal list-inside text-left text-white/90 leading-relaxed space-y-2">
             <li>Upload your resume (PDF format only).</li>
             <li>Our system extracts skills and experience.</li>
@@ -17,7 +19,9 @@ export default function HowItWorks() {
             <li>Receive curated course recommendations (YouTube, Udemy, Coursera, etc.).</li>
             <li>Boost your career with tailored learning resources.</li>
           </ul>
+
         </div>
+
       </main>
 
       <Footer />

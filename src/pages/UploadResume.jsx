@@ -58,8 +58,9 @@ export default function UploadResume() {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 bg-green-500/80 rounded-full hover:bg-green-600/80 transition disabled:opacity-50"
-          >
+            className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-md shadow-md 
+             transition transform hover:scale-105 hover:animate-pulse
+             hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400">
             {loading ? "Uploading..." : "Submit"}
           </button>
 

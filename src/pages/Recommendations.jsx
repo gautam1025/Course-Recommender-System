@@ -27,7 +27,7 @@ export default function Recommendations() {
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center px-6 py-16">
-        <h2 className="text-3xl font-bold mb-6">Recommended Courses</h2>
+        <h2 className="text-4xl font-bold mb-6 text-yellow-300">Recommended Courses</h2>
 
         {error && <p className="text-red-300">{error}</p>}
 
@@ -51,10 +51,13 @@ export default function Recommendations() {
                     href={course.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block mt-3 px-4 py-2 bg-blue-500/80 hover:bg-blue-600/90 rounded-full text-white transition"
-                  >
-                    View Course
-                  </a>
+                      className="inline-block mt-3 px-6 py-3 bg-yellow-400 text-black font-semibold rounded-full 
+                                shadow-md transition transform hover:scale-105 
+                                hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400 
+                                hover:shadow-yellow-300/80">
+                        View Course
+                      </a>
+                      
                 </div>
               ))
             ) : (

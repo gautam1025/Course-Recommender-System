@@ -8,8 +8,10 @@ export default function About() {
       <Navbar />
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
+        
         <div className="bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-md max-w-3xl text-center">
-          <h2 className="text-3xl font-bold mb-4">About This Project</h2>
+          <h2 className="text-4xl font-bold mb-4 text-yellow-300">About This Project</h2>
+          
           <p className="text-white/80 leading-relaxed">
             The Career Recommender is a final-year project designed to help working
             professionals discover the best courses (free & paid) based on their
@@ -17,7 +19,9 @@ export default function About() {
             extraction, and personalized recommendations to guide users in upgrading
             their careers.
           </p>
+          
         </div>
+
       </main>
 
       <Footer />

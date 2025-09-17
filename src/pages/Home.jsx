@@ -20,31 +20,38 @@ export default function Home() {
         </p>
         <Link
           to="/upload"
-          className="px-6 py-3 bg-green-500/80 backdrop-blur-md text-white font-semibold rounded-full shadow-md hover:bg-green-600/80 transition"
-        >
+          className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-md shadow-md 
+             transition transform hover:scale-105 hover:animate-pulse
+             hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400">
           Get Started
         </Link>
       </main>
 
       {/* Feature Cards */}
       <section className="py-16 px-6">
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          
           <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
             <div className="text-5xl mb-4">📄</div>
             <h3 className="text-xl font-bold mb-2">Upload Resume</h3>
             <p>Begin by uploading your resume as a PDF format.</p>
           </div>
+
           <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
             <div className="text-5xl mb-4">🧠</div>
             <h3 className="text-xl font-bold mb-2">Skill Extraction</h3>
             <p>We'll identify your core skills and tailor suggestions.</p>
           </div>
+
           <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
             <div className="text-5xl mb-4">🎯</div>
             <h3 className="text-xl font-bold mb-2">Personalized Courses</h3>
             <p>Get curated free & paid courses matched to your goals.</p>
           </div>
+
         </div>
+
       </section>
 
       {/* Footer - Transparent */}
