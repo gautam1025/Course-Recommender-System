@@ -16,7 +16,7 @@ export default function UploadResume() {
 
     const formData = new FormData();
     formData.append("resume", resume);
-    formData.append("goal", "enhance"); // Can later make this dynamic
+    formData.append("goal", sessionStorage.getItem("goal") || "enhance");
 
     try {
       setLoading(true);
@@ -27,10 +27,8 @@ export default function UploadResume() {
 
       const { skills, goal, recommendations } = res.data;
 
-      // Store recommendations in sessionStorage
       sessionStorage.setItem("recommendations", JSON.stringify(recommendations));
 
-      // Redirect with query params
       window.location.href = `/recommend?skills=${skills.join(",")}&goal=${goal}`;
     } catch (err) {
       console.error("Upload failed", err);
@@ -48,19 +46,48 @@ export default function UploadResume() {
         <div className="bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-md max-w-md w-full text-center">
           <h2 className="text-2xl font-bold mb-4">Upload Resume</h2>
 
-          <input
-            type="file"
-            accept="application/pdf"
-            onChange={(e) => setResume(e.target.files[0])}
-            className="block w-full mb-4 text-sm text-white/80"
-          />
+          {/* Intent Selection */}
+          <div className="flex justify-center gap-6 mb-4">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="goal"
+                value="enhance"
+                defaultChecked
+                className="accent-yellow-400"
+                onChange={(e) => sessionStorage.setItem("goal", e.target.value)}
+              />
+              <span>Skill Upgrade</span>
+            </label>
+
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="goal"
+                value="switch"
+                className="accent-yellow-400"
+                onChange={(e) => sessionStorage.setItem("goal", e.target.value)}
+              />
+              <span>Domain Change</span>
+            </label>
+          </div>
+
+          {/* File Upload with placeholder */}
+          <div className="flex items-center gap-3 mb-4">
+            <input
+              type="file"
+              accept="application/pdf"
+              onChange={(e) => setResume(e.target.files[0])}
+              className="block w-full text-sm text-white/80"
+            />
+            <span className="text-xs text-white/70">PDF only, Max: 5MB</span>
+          </div>
 
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-md shadow-md 
-             transition transform hover:scale-105 hover:animate-pulse
-             hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400">
+            className="px-6 py-2 bg-green-500/80 rounded-full hover:bg-green-600/80 transition disabled:opacity-50"
+          >
             {loading ? "Uploading..." : "Submit"}
           </button>
 

@@ -4,6 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
+const mongoose = require("mongoose");
 
 const { getCourses } = require("./dataService");
 
@@ -12,6 +13,20 @@ const PORT = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+const mongoose_connection = async () => {
+  try {
+    await mongoose.connect(
+      "mongodb+srv://gautam4300_:Gautam4300_@mycluster1.clx35xg.mongodb.net/?retryWrites=true&w=majority&appName=MyCluster1"
+    );
+
+    console.log("database connection successfull....");
+  } catch (err) {
+    console.error("error connecting to the database", err);
+  }
+};
+
+mongoose_connection();
 
 // Multer setup
 const upload = multer({ dest: "uploads/" });
