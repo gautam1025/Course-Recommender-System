@@ -29,7 +29,7 @@ export default function CourseCard({ title, platform, price, link, skills }) {
           skills.map((skill, idx) => (
             <span
               key={idx}
-              className="bg-yellow-100 text-yellow-800 font-bold text-xs px-2 py-1 rounded-full"
+              className="bg-blue-100 text-yellow-800 font-bold text-xs px-2 py-1 rounded-full"
             >
               {skill}
             </span>
@@ -41,10 +41,10 @@ export default function CourseCard({ title, platform, price, link, skills }) {
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block mt-3 px-6 py-2 bg-yellow-400 text-black font-semibold rounded-full transition transform hover:scale-105 hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400 hover:shadow-yellow-300/80"
-      >
+        className="inline-block mt-3 px-6 py-2 bg-yellow-400 text-black font-semibold rounded-full transition transform hover:scale-105 hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400 hover:shadow-yellow-300/80">
         View Course
       </a>
+      
     </div>
   );
 }
