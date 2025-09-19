@@ -44,7 +44,9 @@ export default function Recommendations() {
   // ✅ Reset filters  
   const resetFilters = () => {
     setPlatformFilter("");
-    setSortOrder("");
+    setSortOrder(""); 
+    console.log("platform filter",platformFilter)
+    console.log("sort order",sortOrder)
   };
 
   return (
@@ -68,6 +70,7 @@ export default function Recommendations() {
         <div className="flex flex-col sm:flex-row justify-center gap-4 mb-8">
           {/* Platform Filter */}
           <select
+            value = {platformFilter}
             onChange={(e) => setPlatformFilter(e.target.value)}
             className="px-4 py-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-yellow-400"
           >
@@ -80,6 +83,7 @@ export default function Recommendations() {
 
           {/* Sort by Price */}
           <select
+            value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
             className="px-4 py-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-yellow-400"
           >
@@ -89,11 +93,11 @@ export default function Recommendations() {
           </select>
 
           {/* Reset Button */}
-          <button
-            onClick={resetFilters}
-            className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow-md transition">
-            Reset Filters
-          </button>
+        <button
+          onClick={resetFilters}
+          className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md shadow-md transition">
+          Reset Filters
+        </button>
 
         </div>
 
