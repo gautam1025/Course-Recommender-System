@@ -32,11 +32,9 @@ export default function Recommendations() {
     )
     .sort((a, b) => {
       if (sortOrder === "asc") {
-        return (a.price === "Free" ? 0 : parseFloat(a.price.replace("$", ""))) -
-               (b.price === "Free" ? 0 : parseFloat(b.price.replace("$", "")));
+        return a.numericPrice - b.numericPrice;
       } else if (sortOrder === "desc") {
-        return (b.price === "Free" ? 0 : parseFloat(b.price.replace("$", ""))) -
-               (a.price === "Free" ? 0 : parseFloat(a.price.replace("$", "")));
+        return b.numericPrice - a.numericPrice;
       }
       return 0;
     });
