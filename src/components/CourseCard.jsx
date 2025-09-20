@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function CourseCard({ title, platform, price, link, skills }) {
+export default function CourseCard({ title, platform, price, link, skills, score, explanation }) {
   return (
     <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:scale-105 transition-transform">
       {/* Platform Badge */}
@@ -18,10 +18,27 @@ export default function CourseCard({ title, platform, price, link, skills }) {
         {platform}
       </span>
 
+      {/* Title */}
       <h3 className="text-xl font-semibold mb-2">{title}</h3>
+
+      {/* Price */}
       <p className="text-sm mb-2">
         <span className="font-semibold">Price:</span> {price}
       </p>
+
+      {/* Score */}
+      {score !== undefined && (
+        <p className="text-green-600 font-bold mb-2">
+          Match Score: {score}%
+        </p>
+      )}
+
+      {/* Explanation */}
+      {explanation && (
+        <p className="text-gray-700 italic text-sm mb-3">
+          {explanation}
+        </p>
+      )}
 
       {/* Skills */}
       <div className="flex flex-wrap gap-2 mb-3">
@@ -41,10 +58,10 @@ export default function CourseCard({ title, platform, price, link, skills }) {
         href={link}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-block mt-3 px-6 py-2 bg-yellow-400 text-black font-semibold rounded-full transition transform hover:scale-105 hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400 hover:shadow-yellow-300/80">
+        className="inline-block mt-3 px-6 py-2 bg-yellow-400 text-black font-semibold rounded-full transition transform hover:scale-105 hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400 hover:shadow-yellow-300/80"
+      >
         View Course
       </a>
-      
     </div>
   );
 }

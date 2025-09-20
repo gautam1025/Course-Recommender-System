@@ -7,16 +7,21 @@ export default function UploadResume() {
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [goal, setGoal] = useState(""); // ✅ default none
 
   const handleSubmit = async () => {
     if (!resume) {
       setError("Please select a PDF resume first.");
       return;
     }
+    if (!goal) {
+      setError("Please select your intent (Skill Upgrade or Domain Change).");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("resume", resume);
-    formData.append("goal", sessionStorage.getItem("goal") || "enhance");
+    formData.append("goal", goal);
 
     try {
       setLoading(true);
@@ -26,7 +31,6 @@ export default function UploadResume() {
       });
 
       const { skills, goal, recommendations } = res.data;
-
       sessionStorage.setItem("recommendations", JSON.stringify(recommendations));
 
       window.location.href = `/recommend?skills=${skills.join(",")}&goal=${goal}`;
@@ -44,32 +48,31 @@ export default function UploadResume() {
 
       <main className="flex-1 flex flex-col items-center justify-center px-6 py-16">
         <div className="bg-white/20 backdrop-blur-md p-8 rounded-lg shadow-md max-w-md w-full text-center">
-          <h2 className="text-2xl font-bold mb-4">Upload Resume</h2>
+          <h2 className="text-2xl font-bold mb-6">Upload Resume</h2>
 
-          {/* Intent Selection */}
-          <div className="flex justify-center gap-6 mb-4">
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="goal"
-                value="enhance"
-                defaultChecked
-                className="accent-yellow-400"
-                onChange={(e) => sessionStorage.setItem("goal", e.target.value)}
-              />
-              <span>Skill Upgrade</span>
-            </label>
+          {/* Intent Selection - Stylish Cards */}
+          <div className="flex justify-center gap-6 mb-6">
+            <button
+              type="button"
+              onClick={() => setGoal("enhance")}
+              className={`px-6 py-3 rounded-lg shadow-md border-2 transition 
+                ${goal === "enhance" 
+                  ? "bg-yellow-400 text-black border-yellow-500" 
+                  : "bg-white/20 border-white/40 text-white hover:bg-white/30"}`}
+            >
+            Skill Upgrade
+            </button>
 
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="goal"
-                value="switch"
-                className="accent-yellow-400"
-                onChange={(e) => sessionStorage.setItem("goal", e.target.value)}
-              />
-              <span>Domain Change</span>
-            </label>
+            <button
+              type="button"
+              onClick={() => setGoal("switch")}
+              className={`px-6 py-3 rounded-lg shadow-md border-2 transition 
+                ${goal === "switch" 
+                  ? "bg-yellow-400 text-black border-yellow-500" 
+                  : "bg-white/20 border-white/40 text-white hover:bg-white/30"}`}
+            >
+            Domain Change
+            </button>
           </div>
 
           {/* File Upload with placeholder */}
@@ -86,7 +89,9 @@ export default function UploadResume() {
           <button
             onClick={handleSubmit}
             disabled={loading}
-            className="px-6 py-2 bg-green-500/80 rounded-full hover:bg-green-600/80 transition disabled:opacity-50"
+            className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-md shadow-md 
+             transition transform hover:scale-105 hover:animate-pulse
+             hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400"
           >
             {loading ? "Uploading..." : "Submit"}
           </button>
