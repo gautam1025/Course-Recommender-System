@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import CourseCard from "../components/CourseCard"; 
+import CourseCard from "../components/CourseCard";
 
 export default function Recommendations() {
   const location = useLocation();
@@ -47,7 +47,7 @@ export default function Recommendations() {
     (c) => !c.price.toLowerCase().includes("free")
   );
 
-  // ✅ Reset filters  
+  // ✅ Reset filters
   const resetFilters = () => {
     setPlatformFilter("");
     setSortOrder("");
@@ -85,8 +85,8 @@ export default function Recommendations() {
             <option value="FreeCodeCamp">FreeCodeCamp</option>
           </select>
 
-         {/* Sort by Price */}
-          {/* <select
+          {/* Sort by Price */}
+          <select
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
             className="px-4 py-2 rounded-md text-black focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -94,7 +94,7 @@ export default function Recommendations() {
             <option value="">Sort by Price</option>
             <option value="asc">Lowest to Highest</option>
             <option value="desc">Highest to Lowest</option>
-          </select> */}
+          </select>
 
           {/* Reset Button */}
           <button

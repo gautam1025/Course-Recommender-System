@@ -7,7 +7,7 @@ export default function UploadResume() {
   const [resume, setResume] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [goal, setGoal] = useState(""); // ✅ default none
+  const [goal, setGoal] = useState(""); // ✅ Skill Upgrade or Domain Change
 
   const handleSubmit = async () => {
     if (!resume) {
@@ -19,24 +19,38 @@ export default function UploadResume() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append("resume", resume);
-    formData.append("goal", goal);
+    setError("");
+    setLoading(true);
 
     try {
-      setLoading(true);
-      setError("");
-      const res = await axios.post("http://localhost:5000/api/recommend", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      // Step 1: Upload PDF to backend (Node.js) for text extraction
+      const formData = new FormData();
+      formData.append("resume", resume);
+      formData.append("goal", goal);
 
-      const { skills, goal, recommendations } = res.data;
+      const res = await axios.post(
+        "http://localhost:5000/api/recommend", // ✅ correct route
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      );
+
+      const { profile, recommendations } = res.data;
+
+      // Save to session storage
       sessionStorage.setItem("recommendations", JSON.stringify(recommendations));
 
+      // Redirect
+      window.location.href = `/recommend?skills=${profile.skills.join(",")}&goal=${goal}`;
+      
+
+      // Save recommendations to sessionStorage for Recommendations page
+      sessionStorage.setItem("recommendations", JSON.stringify(recommendations));
+
+      // Redirect with query params
       window.location.href = `/recommend?skills=${skills.join(",")}&goal=${goal}`;
     } catch (err) {
       console.error("Upload failed", err);
-      setError("Failed to upload resume. Please try again.");
+      setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -56,26 +70,26 @@ export default function UploadResume() {
               type="button"
               onClick={() => setGoal("enhance")}
               className={`px-6 py-3 rounded-lg shadow-md border-2 transition 
-                ${goal === "enhance" 
-                  ? "bg-yellow-400 text-black border-yellow-500" 
+                ${goal === "enhance"
+                  ? "bg-yellow-400 text-black border-yellow-500"
                   : "bg-white/20 border-white/40 text-white hover:bg-white/30"}`}
             >
-            Skill Upgrade
+              Skill Upgrade
             </button>
 
             <button
               type="button"
               onClick={() => setGoal("switch")}
               className={`px-6 py-3 rounded-lg shadow-md border-2 transition 
-                ${goal === "switch" 
-                  ? "bg-yellow-400 text-black border-yellow-500" 
+                ${goal === "switch"
+                  ? "bg-yellow-400 text-black border-yellow-500"
                   : "bg-white/20 border-white/40 text-white hover:bg-white/30"}`}
             >
-            Domain Change
+              Domain Change
             </button>
           </div>
 
-          {/* File Upload with placeholder */}
+          {/* File Upload */}
           <div className="flex items-center gap-3 mb-4">
             <input
               type="file"
@@ -93,7 +107,7 @@ export default function UploadResume() {
              transition transform hover:scale-105 hover:animate-pulse
              hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400"
           >
-            {loading ? "Uploading..." : "Submit"}
+            {loading ? "Processing..." : "Submit"}
           </button>
 
           {error && <p className="text-red-300 mt-3">{error}</p>}

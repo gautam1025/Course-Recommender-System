@@ -4,6 +4,7 @@ const multer = require("multer");
 const fs = require("fs");
 const path = require("path");
 const pdfParse = require("pdf-parse");
+const axios = require("axios"); // ✅ For calling Python service
 
 const { getCourses } = require("./dataService");
 
@@ -16,13 +17,8 @@ app.use(express.json());
 // Multer setup
 const upload = multer({ dest: "uploads/" });
 
-// Load skills list
-const skillsList = JSON.parse(
-  fs.readFileSync(path.join(__dirname, "skills.json"), "utf-8")
-);
-
 //
-// ---------- Recommendation helpers ----------
+// ---------- Recommendation helpers (same as before) ----------
 //
 function normalizeSkills(arr) {
   return Array.from(
@@ -61,7 +57,7 @@ function priceBonus(course) {
   return 0;
 }
 
-function scoreCourse(course, userSkills, goal = "upskill") {
+function scoreCourse(course, userSkills, goal = "upskill", userProfile = {}) {
   const userSet = new Set(userSkills.map((s) => s.toLowerCase()));
   const metrics = computeCourseMetrics(course, userSet);
 
@@ -72,7 +68,38 @@ function scoreCourse(course, userSkills, goal = "upskill") {
     score = metrics.relevance * 0.9 + metrics.novelty * 0.1;
   }
 
+  // ---------- NEW: Experience & Degree Adjustment ----------
+  let experienceBonus = 0;
+  let degreeBonus = 0;
+
+  // Experience (simple rule-based)
+  if (userProfile.experience_years && userProfile.experience_years.length > 0) {
+    const expText = userProfile.experience_years.join(" ").toLowerCase();
+    const yearsMatch = expText.match(/(\d+)/); // extract number
+    if (yearsMatch) {
+      const years = parseInt(yearsMatch[1]);
+      if (years >= 3) experienceBonus = 0.1; // boost advanced
+      else if (years < 1) experienceBonus = -0.05; // penalize advanced slightly
+    }
+  }
+
+  // Degrees (simple keyword mapping)
+  if (userProfile.degrees && userProfile.degrees.length > 0) {
+    const deg = userProfile.degrees.join(" ").toLowerCase();
+    if (deg.includes("phd") || deg.includes("master") || deg.includes("m.tech")) {
+      degreeBonus = 0.1; // advanced learner
+    } else if (deg.includes("b.tech") || deg.includes("bachelor")) {
+      degreeBonus = 0.05; // intermediate learner
+    }
+  }
+
+  // Add bonuses
+  score += experienceBonus + degreeBonus;
+
+  // Price preference
   score += priceBonus(course);
+
+  // Clamp
   score = Math.max(0, Math.min(1, score));
 
   const explanation = [];
@@ -82,6 +109,8 @@ function scoreCourse(course, userSkills, goal = "upskill") {
   if (metrics.newCount > 0) {
     explanation.push(`Teaches ${metrics.newCount} new skill(s)`);
   }
+  if (experienceBonus > 0) explanation.push("Adjusted for your experience level");
+  if (degreeBonus > 0) explanation.push("Adjusted for your degree background");
   if (course.price && String(course.price).toLowerCase().includes("free")) {
     explanation.push("Free resource");
   }
@@ -94,11 +123,12 @@ function scoreCourse(course, userSkills, goal = "upskill") {
   };
 }
 
-function rankCourses(courses, userSkills, goal, topN = 20) {
+
+function rankCourses(courses, userSkills, goal, userProfile, topN = 20) {
   const userSkillsNormalized = normalizeSkills(userSkills || []);
   const scored = courses.map((c) => ({
     c,
-    s: scoreCourse(c, userSkillsNormalized, goal),
+    s: scoreCourse(c, userSkillsNormalized, goal, userProfile),
   }));
 
   scored.sort((a, b) => b.s.score - a.s.score);
@@ -114,6 +144,7 @@ function rankCourses(courses, userSkills, goal, topN = 20) {
   }));
 }
 
+
 //
 // ---------- API Endpoints ----------
 //
@@ -121,34 +152,33 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
   try {
     const { goal } = req.body;
 
-    // Read uploaded file
+    // 1. Read uploaded PDF
     const filePath = path.join(__dirname, req.file.path);
     const dataBuffer = fs.readFileSync(filePath);
     const pdfData = await pdfParse(dataBuffer);
+    const text = pdfData.text;
 
-    const text = pdfData.text.toLowerCase();
-
-    // Extract skills from resume
-    const extractedSkills = skillsList.filter((skill) => {
-      const safeSkill = skill.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const regex = new RegExp(`\\b${safeSkill}\\b`, "i");
-      return regex.test(text);
+    // 2. Send resume text to Python NER service
+    const nerResponse = await axios.post("http://localhost:8000/ner", {
+      text: text,
     });
 
-    // Load courses
+    const userProfile = nerResponse.data; // {skills, job_titles, degrees, companies, experience_years}
+
+    // 3. Load courses
     const courseDB = await getCourses("json");
 
-    // Rank courses
-    const ranked = rankCourses(courseDB, extractedSkills, goal, 30);
+    // 4. Rank courses using extracted skills
+    const ranked = rankCourses(courseDB, userProfile.skills || [], goal, userProfile, 30);
 
     res.json({
-      message: "Resume parsed successfully",
-      skills: extractedSkills,
+      message: "Resume analyzed successfully",
+      profile: userProfile,
       goal,
       recommendations: ranked,
     });
   } catch (err) {
-    console.error("❌ Error parsing resume:", err);
+    console.error("❌ Error in /api/recommend:", err.message);
     res.status(500).json({ error: "Failed to process resume" });
   }
 });
@@ -159,5 +189,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () =>
-  console.log(`✅ Server running on http://localhost:${PORT}`)
+  console.log(`✅ Node backend running on http://localhost:${PORT}`)
 );

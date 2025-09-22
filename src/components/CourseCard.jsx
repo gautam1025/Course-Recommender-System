@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 
 export default function CourseCard({ title, platform, price, link, skills, score, explanation }) {
+  const [showMore, setShowMore] = useState(false);
+
   return (
     <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:scale-105 transition-transform">
       {/* Platform Badge */}
@@ -12,6 +14,8 @@ export default function CourseCard({ title, platform, price, link, skills, score
             ? "bg-purple-100 text-purple-700"
             : platform === "Coursera"
             ? "bg-blue-100 text-blue-700"
+            : platform === "FreeCodeCamp"
+            ? "bg-green-100 text-green-700"
             : "bg-gray-100 text-gray-700"
         }`}
       >
@@ -28,16 +32,24 @@ export default function CourseCard({ title, platform, price, link, skills, score
 
       {/* Score */}
       {score !== undefined && (
-        <p className="text-green-600 font-bold mb-2">
-          Match Score: {score}%
+        <p className="text-green-400 font-bold mb-2">
+          Relevance Score: {score}%
         </p>
       )}
 
-      {/* Explanation */}
+      {/* Explanation with toggle */}
       {explanation && (
-        <p className="text-gray-700 italic text-sm mb-3">
-          {explanation}
-        </p>
+        <div className="text-gray-200 italic text-sm mb-3">
+          {showMore ? explanation : explanation.slice(0, 80) + (explanation.length > 80 ? "..." : "")}
+          {explanation.length > 80 && (
+            <button
+              onClick={() => setShowMore(!showMore)}
+              className="ml-2 text-yellow-300 underline hover:text-yellow-400 text-xs"
+            >
+              {showMore ? "Show Less" : "Show More"}
+            </button>
+          )}
+        </div>
       )}
 
       {/* Skills */}
