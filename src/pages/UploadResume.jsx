@@ -23,31 +23,24 @@ export default function UploadResume() {
     setLoading(true);
 
     try {
-      // Step 1: Upload PDF to backend (Node.js) for text extraction
+      // ✅ Send PDF + goal directly to Node backend
       const formData = new FormData();
       formData.append("resume", resume);
       formData.append("goal", goal);
 
       const res = await axios.post(
-        "http://localhost:5000/api/recommend", // ✅ correct route
+        "http://localhost:5000/api/recommend",
         formData,
         { headers: { "Content-Type": "multipart/form-data" } }
       );
 
       const { profile, recommendations } = res.data;
 
-      // Save to session storage
+      // ✅ Save to session storage
       sessionStorage.setItem("recommendations", JSON.stringify(recommendations));
 
-      // Redirect
+      // ✅ Redirect with extracted skills + goal
       window.location.href = `/recommend?skills=${profile.skills.join(",")}&goal=${goal}`;
-      
-
-      // Save recommendations to sessionStorage for Recommendations page
-      sessionStorage.setItem("recommendations", JSON.stringify(recommendations));
-
-      // Redirect with query params
-      window.location.href = `/recommend?skills=${skills.join(",")}&goal=${goal}`;
     } catch (err) {
       console.error("Upload failed", err);
       setError("Something went wrong. Please try again.");

@@ -1,0 +1,289 @@
+[
+  {
+    "title": "Learn Python - Full Course for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=rfscVS0vtbw",
+    "price": "Free",
+    "skills": ["python", "programming fundamentals"]
+  },
+  {
+    "title": "Java Programming Masterclass covering Java 11 & Java 17",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/java-the-complete-java-developer-course/",
+    "price": "$15",
+    "skills": ["java", "object oriented programming", "spring"]
+  },
+  {
+    "title": "C++ Tutorial for Beginners - Full Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=vLnPwxZdW4Y",
+    "price": "Free",
+    "skills": ["c++", "programming fundamentals"]
+  },
+  {
+    "title": "C# Basics for Beginners",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/csharp-tutorial-for-beginners/",
+    "price": "$12",
+    "skills": ["c#", ".net"]
+  },
+  {
+    "title": "The Complete JavaScript Course: From Zero to Expert!",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/the-complete-javascript-course/",
+    "price": "$15",
+    "skills": ["javascript", "html", "css", "es6"]
+  },
+  {
+    "title": "React - The Complete Guide (incl Hooks, React Router, Redux)",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/react-the-complete-guide-incl-redux/",
+    "price": "Free",
+    "skills": ["react", "javascript", "redux", "hooks", "router"]
+  },
+  {
+    "title": "Full-Stack Open 2024",
+    "platform": "University of Helsinki",
+    "link": "https://fullstackopen.com/en/",
+    "price": "Free",
+    "skills": ["javascript", "react", "node", "express", "mongodb", "graphql", "typescript"]
+  },
+  {
+    "title": "The Web Developer Bootcamp",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/the-web-developer-bootcamp/",
+    "price": "$15",
+    "skills": ["html", "css", "javascript", "node", "express", "mongodb", "bootstrap"]
+  },
+  {
+    "title": "Python for Data Science and Machine Learning Bootcamp",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/python-for-data-science-and-machine-learning-bootcamp/",
+    "price": "$15",
+    "skills": ["python", "data science", "machine learning", "pandas", "numpy", "matplotlib", "seaborn", "scikit-learn"]
+  },
+  {
+    "title": "Machine Learning Specialization by Andrew Ng",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/specializations/machine-learning-introduction",
+    "price": "$49/month",
+    "skills": ["machine learning", "python", "tensorflow", "deep learning", "neural networks"]
+  },
+  {
+    "title": "Deep Learning with PyTorch for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=EMXfZB8FVUA",
+    "price": "Free",
+    "skills": ["deep learning", "pytorch", "python", "neural networks"]
+  },
+  {
+    "title": "AWS Certified Solutions Architect - Associate",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=Ia-UEYYR44s",
+    "price": "Free",
+    "skills": ["aws", "cloud", "ec2", "s3", "vpc", "iam"]
+  },
+  {
+    "title": "Microsoft Azure Fundamentals (AZ-900) Full Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=NKEFWyqJ5XA",
+    "price": "Free",
+    "skills": ["azure", "cloud", "iaas", "paas", "saas"]
+  },
+  {
+    "title": "Google Cloud Digital Leader Training",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/professional-certificates/google-cloud",
+    "price": "$39/month",
+    "skills": ["gcp", "cloud", "bigquery", "compute engine"]
+  },
+  {
+    "title": "Docker and Kubernetes: The Complete Guide",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/docker-and-kubernetes-the-complete-guide/",
+    "price": "$18",
+    "skills": ["docker", "kubernetes", "devops", "containers"]
+  },
+  {
+    "title": "Linux for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=sWbUDq4S6Y8",
+    "price": "Free",
+    "skills": ["linux", "bash", "command line"]
+  },
+  {
+    "title": "Git and GitHub for Beginners - Crash Course",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=RGOj5yH7evk",
+    "price": "Free",
+    "skills": ["git", "github", "version control"]
+  },
+  {
+    "title": "Jenkins, From Zero To Hero: Become a DevOps Jenkins Master",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/jenkins-from-zero-to-hero/",
+    "price": "$14",
+    "skills": ["jenkins", "devops", "ci-cd"]
+  },
+  {
+    "title": "Tableau 2022 A-Z: Hands-On Tableau Training for Data Science",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/tableau10/",
+    "price": "Free",
+    "skills": ["tableau", "data visualization", "business intelligence"]
+  },
+  {
+    "title": "Microsoft Power BI - A Complete Introduction",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/powerbi-complete-introduction/",
+    "price": "$12",
+    "skills": ["power bi", "business intelligence", "dax"]
+  },
+  {
+    "title": "Introduction to Cybersecurity",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/intro-cyber-security",
+    "price": "$39/month",
+    "skills": ["cybersecurity", "network security", "information security"]
+  },
+  {
+    "title": "Blockchain Basics",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/blockchain-basics",
+    "price": "$39/month",
+    "skills": ["blockchain", "cryptocurrency", "solidity"]
+  },
+  {
+    "title": "Cryptography I by Stanford",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/crypto",
+    "price": "Free",
+    "skills": ["cryptography", "security"]
+  },
+  {
+    "title": "Angular - The Complete Guide",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/the-complete-guide-to-angular-2/",
+    "price": "$15",
+    "skills": ["angular", "typescript", "javascript"]
+  },
+  {
+    "title": "Vue - The Complete Guide (incl. Vue Router & Vuex)",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/vuejs-2-the-complete-guide/",
+    "price": "$15",
+    "skills": ["vue", "javascript", "vuex"]
+  },
+  {
+    "title": "Node.js, Express, MongoDB & More: The Complete Bootcamp",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/nodejs-express-mongodb-bootcamp/",
+    "price": "$14",
+    "skills": ["node", "express", "mongodb", "api", "rest"]
+  },
+  {
+    "title": "The Complete SQL Bootcamp: Go from Zero to Hero",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/the-complete-sql-bootcamp/",
+    "price": "$15",
+    "skills": ["sql", "database", "postgresql"]
+  },
+  {
+    "title": "Advanced SQL: MySQL Data Analysis & Business Intelligence",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/advanced-sql-mysql-for-analytics-business-intelligence/",
+    "price": "$18",
+    "skills": ["sql", "mysql", "database", "business intelligence"]
+  },
+  {
+    "title": "Flutter & Dart - The Complete Guide",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/learn-flutter-dart-to-build-ios-android-apps/",
+    "price": "$15",
+    "skills": ["flutter", "dart", "android", "ios", "mobile development"]
+  },
+  {
+    "title": "iOS & Swift - The Complete iOS App Development Bootcamp",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/ios-13-app-development-bootcamp/",
+    "price": "$15",
+    "skills": ["ios", "swift", "xcode", "mobile development"]
+  },
+  {
+    "title": "The Complete Android 12 Developer Course",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/the-complete-android-10-developer-course-mastering-android/",
+    "price": "$15",
+    "skills": ["android", "kotlin", "java", "mobile development"]
+  },
+  {
+    "title": "Figma UI UX Design Essentials",
+    "platform": "Udemy",
+    "link": "https://www.udemy.com/course/figma-ux-ui-design-user-experience-tutorial-course/",
+    "price": "$12",
+    "skills": ["ui", "ux", "figma", "design"]
+  },
+  {
+    "title": "Natural Language Processing with Python and NLTK",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=6d6h-i_4I4s",
+    "price": "Free",
+    "skills": ["nlp", "python", "nltk", "machine learning"]
+  },
+  {
+    "title": "Terraform for the Absolute Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=Yp7-eAynK-c",
+    "price": "Free",
+    "skills": ["terraform", "devops", "iac", "aws"]
+  },
+  {
+    "title": "Introduction to Scrum",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/introduction-to-scrum",
+    "price": "$29/month",
+    "skills": ["agile", "scrum", "project management"]
+  },
+  {
+    "title": "Go (Golang) Programming for Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=YS4e4q9oBaU",
+    "price": "Free",
+    "skills": ["go", "golang"]
+  },
+  {
+    "title": "Rust Programming Tutorial",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=vOMk1o5LgGQ",
+    "price": "Free",
+    "skills": ["rust"]
+  },
+  {
+    "title": "Ethical Hacking For Beginners",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=fKV_T-gMvE4",
+    "price": "Free",
+    "skills": ["ethical hacking", "cybersecurity", "penetration testing"]
+  },
+  {
+    "title": "Data Structures and Algorithms in Java",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=rZ41y93P2Qo",
+    "price": "Free",
+    "skills": ["data structures", "algorithms", "java"]
+  },
+  {
+    "title": "Computer Vision with Python",
+    "platform": "YouTube",
+    "link": "https://www.youtube.com/watch?v=c-g6epk3f4g",
+    "price": "Free",
+    "skills": ["computer vision", "opencv", "python", "machine learning"]
+  },
+  {
+    "title": "Introduction to Project Management",
+    "platform": "Coursera",
+    "link": "https://www.coursera.org/learn/project-management-foundations",
+    "price": "$49/month",
+    "skills": ["project management", "agile"]
+  }
+]
