@@ -1,19 +1,18 @@
-/**
- * Deduplicate courses by title + platform (case-insensitive).
- * If the same title appears across multiple platforms,
- * prefer the first occurrence.
- */
-function dedupeCourses(courses) {
-  const seen = new Set();
 
-  return courses.filter((course) => {
-    const key = (course.title + "|" + course.platform).toLowerCase().trim();
-    if (seen.has(key)) {
-      return false; // duplicate, remove
+// Deduplicate courses within an array (same title/platform treated as duplicate)
+function dedupeCourses(courses, seen = new Set()) {
+  const unique = [];
+
+  for (const c of courses) {
+    const key = `${(c.title || "").toLowerCase()}-${(c.platform || "").toLowerCase()}`;
+
+    if (!seen.has(key)) {
+      seen.add(key);
+      unique.push(c);
     }
-    seen.add(key);
-    return true;
-  });
+  }
+
+  return unique;
 }
 
 module.exports = { dedupeCourses };

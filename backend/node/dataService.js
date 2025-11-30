@@ -30,8 +30,8 @@ function normalizeCourse(course, platform) {
   return {
     title: course.title || "Untitled",
     platform: platform || "Unknown",
-    price: rawPrice,          // keep original string for display
-    numericPrice,             // ✅ new usable numeric field
+    price: rawPrice,          
+    numericPrice,            
     skills: Array.isArray(course.skills) ? course.skills : [],
     level: course.level || "Beginner",
     link: course.link || "#",
@@ -153,6 +153,9 @@ function rankCourses(courses, userSkills, goal, userProfile, topN = 20) {
     skills: c.skills,
     score: s.scorePct,
     explanation: s.explanation,
+    thumbnail: c.thumbnail || null,   
+    channel: c.channel || "",         
+    description: c.description || ""  
   }));
 }
 

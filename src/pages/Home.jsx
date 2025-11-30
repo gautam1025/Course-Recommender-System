@@ -1,61 +1,79 @@
+ 
 import React from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-r from-purple-600 via-pink-500 to-blue-600 text-white">
-      {/* Navbar */}
-      <Navbar />
+    <div className="w-full">
 
-      {/* Hero Section */}
-      <main className="flex-1 flex flex-col items-center justify-center text-center px-6 py-20">
-        <h1 className="text-4xl md:text-5xl font-extrabold mb-4">
-          AI-Powered Career & Course Recommender
-        </h1>
-        <p className="text-lg md:text-xl mb-6 max-w-2xl">
-          Upload your resume and discover the best free and paid courses to 
-          upgrade your skills, switch domains, or accelerate your career growth.
-        </p>
-        <Link
-          to="/upload"
-          className="px-6 py-3 bg-yellow-400 text-black font-bold rounded-md shadow-md 
-             transition transform hover:scale-105 hover:animate-pulse
-             hover:ring-4 hover:ring-white hover:ring-offset-2 hover:ring-offset-yellow-400">
-          Get Started
-        </Link>
-      </main>
+      {/* FULL-SCREEN HERO OVER BACKGROUND IMAGE */}
+      <section
+        className="w-full min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 
+                   bg-gradient-to-br from-[#0D1B2A]/80 via-[#3A0CA3]/70 to-[#4361EE]/60 backdrop-grey-sm"
+      >
+        <div className="max-w-4xl mx-auto">
+          <h1 className="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-2xl">
+            AI-Powered Career &amp; Course Recommender
+          </h1>
 
-      {/* Feature Cards */}
-      <section className="py-16 px-6">
+          <p className="text-lg md:text-xl mt-6 max-w-2xl mx-auto text-gray-200 drop-shadow-md">
+            Let AI guide your learning — personalized for your skills, goals and future career growth.
+          </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          
-          <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
-            <div className="text-5xl mb-4">📄</div>
-            <h3 className="text-xl font-bold mb-2">Upload Resume</h3>
-            <p>Begin by uploading your resume as a PDF format.</p>
-          </div>
+          <Link
+            to="/upload"
+            className="inline-block mt-10 px-8 py-3 text-lg font-bold rounded-full
+                     bg-blue-400 hover:bg-blue-300 text-black shadow-xl
+                     hover:shadow-blue-400/50 hover:scale-105 hover:-translate-y-1
+                     transition-all duration-200"
+          >
+            Get Started 🚀
+          </Link>
 
-          <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
-            <div className="text-5xl mb-4">🧠</div>
-            <h3 className="text-xl font-bold mb-2">Skill Extraction</h3>
-            <p>We'll identify your core skills and tailor suggestions.</p>
-          </div>
-
-          <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105 text-white">
-            <div className="text-5xl mb-4">🎯</div>
-            <h3 className="text-xl font-bold mb-2">Personalized Courses</h3>
-            <p>Get curated free & paid courses matched to your goals.</p>
-          </div>
-
+          {/* Scroll prompt */}
+          <p className="mt-12 text-white/80 animate-bounce text-sm">
+            ↓ Scroll to explore
+          </p>
         </div>
-
       </section>
 
-      {/* Footer - Transparent */}
-      <Footer />
+      {/* FEATURE SECTION */}
+      <section className="py-20 px-8 bg-black/50 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-3xl font-bold text-center mb-12 drop-shadow-xl">
+            Why Choose Our System?
+          </h2>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div className="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/20 
+                            shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
+              <div className="text-5xl mb-4">📄</div>
+              <h3 className="text-xl font-semibold mb-2">Upload Resume</h3>
+              <p className="text-gray-200">
+                Upload resume (PDF/DOCX) — AI extracts skills & experience instantly.
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/20 
+                            shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
+              <div className="text-5xl mb-4">🧠</div>
+              <h3 className="text-xl font-semibold mb-2">Skill Extraction</h3>
+              <p className="text-gray-200">
+                Detects skill gaps + matches your interests with trending career paths.
+              </p>
+            </div>
+
+            <div className="bg-white/10 backdrop-blur-xl p-8 rounded-xl border border-white/20
+                            shadow-lg hover:scale-105 hover:shadow-2xl transition duration-300">
+              <div className="text-5xl mb-4">🎯</div>
+              <h3 className="text-xl font-semibold mb-2">Personalized Courses</h3>
+              <p className="text-gray-200">
+                Smartly recommended courses with structured milestone-based learning.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
     </div>
   );

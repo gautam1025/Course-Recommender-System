@@ -1,10 +1,46 @@
 import React, { useState } from "react";
 
-export default function CourseCard({ title, platform, price, link, skills, score, explanation }) {
+export default function CourseCard({ 
+  title, 
+  platform, 
+  price, 
+  link, 
+  skills, 
+  score, 
+  explanation, 
+  thumbnail, 
+  channel, 
+  description 
+}) {
   const [showMore, setShowMore] = useState(false);
 
   return (
     <div className="bg-white/20 backdrop-blur-md p-6 rounded-lg shadow-md hover:scale-105 transition-transform">
+      {/* Thumbnail with Play Badge for YouTube */}
+      {thumbnail && (
+        <a href={link} target="_blank" rel="noopener noreferrer" className="relative block mb-3">
+          <img
+            src={thumbnail}
+            alt={title}
+            className="w-full h-40 object-cover rounded-md"
+          />
+          {platform === "YouTube" && (
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-black/50 rounded-full p-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="white"
+                  viewBox="0 0 24 24"
+                  className="w-8 h-8"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
+            </div>
+          )}
+        </a>
+      )}
+
       {/* Platform Badge */}
       <span
         className={`inline-block px-3 py-1 text-sm font-bold rounded-full mb-3 ${
@@ -23,7 +59,12 @@ export default function CourseCard({ title, platform, price, link, skills, score
       </span>
 
       {/* Title */}
-      <h3 className="text-xl font-semibold mb-2">{title}</h3>
+      <h3 className="text-xl font-semibold mb-1">{title}</h3>
+
+      {/* Channel Info (for YouTube etc.) */}
+      {channel && (
+        <p className="text-xs text-gray-300 mb-2 italic">by {channel}</p>
+      )}
 
       {/* Price */}
       <p className="text-sm mb-2">
@@ -50,6 +91,13 @@ export default function CourseCard({ title, platform, price, link, skills, score
             </button>
           )}
         </div>
+      )}
+
+      {/* Optional Description */}
+      {description && (
+        <p className="text-xs text-gray-400 mb-3">
+          {description.slice(0, 100)}{description.length > 100 && "..."}
+        </p>
       )}
 
       {/* Skills */}
