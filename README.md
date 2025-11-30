@@ -1,4 +1,4 @@
-Career & Course Recommendation System
+Career & Course Recommendation System: 
 React, Node.js, Python, FastAPI, MongoDB, spaCy
 
 A resume-driven recommendation engine that provides personalized course suggestions and career roadmaps to help users achieve their professional goals, whether it's upskilling in their current domain or switching to a new one.
