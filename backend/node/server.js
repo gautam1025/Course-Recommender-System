@@ -1,24 +1,78 @@
-// routing page
+// ============================================================================
+// Course Recommender System - Backend Server
+// ============================================================================
+// This Express.js server provides RESTful APIs for:
+// - Resume upload and analysis using NER (Named Entity Recognition)
+// - Course recommendations based on extracted skills
+// - Career roadmap generation
+// - Dashboard data aggregation
+//
+// Key Features:
+// - Async file operations for better performance
+// - Structured logging with Winston
+// - Caching in dataService to reduce API calls
+// - PDF parsing for resume text extraction
+// - Integration with Python NER microservice
+// ============================================================================
 
 require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
 const multer = require("multer");
-const fs = require("fs");
+const fs = require("fs").promises; // Use promises for async file operations
 const path = require("path");
 const pdfParse = require("pdf-parse");
 const axios = require("axios");
-const { getCoursesAndRank } = require("./dataService"); 
-const roadmapTemplates = require("./roadmapTemplates"); // ✅ NEW: import templates
+const winston = require("winston"); // Structured logging
+const { getCoursesAndRank } = require("./dataService");
+const roadmapTemplates = require("./roadmapTemplates"); // Career roadmap templates
 
+// ============================================================================
+// Logging Configuration
+// ============================================================================
+// Winston logger provides structured logging with:
+// - Console output for development
+// - File logging for production monitoring
+// - Error tracking with stack traces
+// - JSON format for log aggregation
+// ============================================================================
+const logger = winston.createLogger({
+  level: "info",
+  format: winston.format.combine(
+    winston.format.timestamp(),
+    winston.format.errors({ stack: true }),
+    winston.format.json()
+  ),
+  defaultMeta: { service: "course-recommender-backend" },
+  transports: [
+    new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.simple()
+      )
+    }),
+    new winston.transports.File({ filename: "logs/error.log", level: "error" }),
+    new winston.transports.File({ filename: "logs/combined.log" })
+  ]
+});
+
+// ============================================================================
+// Express App Configuration
+// ============================================================================
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
-app.use(express.json());
+// Middleware setup
+app.use(cors()); // Enable CORS for frontend communication
+app.use(express.json()); // Parse JSON request bodies
 
-// Multer setup
+// ============================================================================
+// File Upload Configuration
+// ============================================================================
+// Multer handles multipart/form-data for resume uploads
+// Files are temporarily stored in 'uploads/' directory
+// ============================================================================
 const upload = multer({ dest: "uploads/" });
 
 //

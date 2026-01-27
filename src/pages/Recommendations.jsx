@@ -1,5 +1,5 @@
  
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CourseCard from "../components/CourseCard";
 
@@ -26,19 +26,21 @@ export default function Recommendations() {
     }
   }, []);
 
-  // ✅ Filtering & Sorting
-  const filteredCourses = courses
-    .filter((course) =>
-      platformFilter ? course.platform === platformFilter : true
-    )
-    .sort((a, b) => {
-      if (sortOrder === "asc") {
-        return a.numericPrice - b.numericPrice;
-      } else if (sortOrder === "desc") {
-        return b.numericPrice - a.numericPrice;
-      }
-      return 0;
-    });
+  // ✅ Filtering & Sorting with memoization for performance
+  const filteredCourses = useMemo(() => {
+    return courses
+      .filter((course) =>
+        platformFilter ? course.platform === platformFilter : true
+      )
+      .sort((a, b) => {
+        if (sortOrder === "asc") {
+          return a.numericPrice - b.numericPrice;
+        } else if (sortOrder === "desc") {
+          return b.numericPrice - a.numericPrice;
+        }
+        return 0;
+      });
+  }, [courses, platformFilter, sortOrder]);
 
   // ✅ Split into free vs paid
   const freeCourses = filteredCourses.filter((c) =>
@@ -48,11 +50,11 @@ export default function Recommendations() {
     (c) => !c.price.toLowerCase().includes("free")
   );
 
-  // ✅ Reset filters
-  const resetFilters = () => {
+  // ✅ Reset filters with memoization
+  const resetFilters = useCallback(() => {
     setPlatformFilter("");
     setSortOrder("");
-  };
+  }, []);
 
   return (
     <div className="w-full">
@@ -196,7 +198,7 @@ export default function Recommendations() {
                          shadow-lg shadow-yellow-400/60 hover:scale-105 hover:-translate-y-0.5 
                          transition-transform text-sm md:text-base"
             >
-              View My Career Roadmap 🚀
+              View My Career Roadmap
             </button>
           </div>
 

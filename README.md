@@ -126,20 +126,19 @@ Local Setup & Installation
 
         i. Start the NLP Service:
 
-            cd nlp-service
-            uvicorn main:app --reload
+            cd backend/NER_Service
+            python -m uvicorn ner_service:app --reload --port 8000
 
         ii. Start the Backend API Gateway:
 
-            cd server
-            npm start
+            cd backend/node
+            node server.js
 
         iii. Start the Frontend Development Server:
 
-            cd client
-            npm start
+            npm run dev
 
-    The application should now be running on http://localhost:3000.
+    The application should now be running on http://localhost:5173.
 
 📈 Future Enhancements
 

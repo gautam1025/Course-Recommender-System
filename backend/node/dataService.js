@@ -1,5 +1,9 @@
 const fs = require("fs");
 const path = require("path");
+const NodeCache = require("node-cache");
+
+// Initialize cache with 10-minute TTL (600 seconds)
+const courseCache = new NodeCache({ stdTTL: 600, checkperiod: 120 });
 
 // Remove duplicate courses
 const { dedupeCourses } = require("./utils/dedupe");
@@ -188,15 +192,43 @@ async function getCourses(source = "json", query = "python") {
   return [...local, ...udemy, ...coursera, ...youtube];
 }
 
+// Cached hybrid course fetching to reduce API calls
+async function getHybridCourses(query) {
+  const cacheKey = `hybrid_${query}`;
+
+  // Check cache first
+  const cached = courseCache.get(cacheKey);
+  if (cached) {
+    console.log("✅ Using cached courses for:", query);
+    return cached;
+  }
+
+  console.log("🔄 Fetching fresh courses for:", query);
+
+  // Fetch from all sources
+  const local = getCoursesFromJSON();
+  const udemy = await fetchUdemyCourses(query);
+  const coursera = await fetchCourseraCourses(query);
+  const youtube = await fetchYouTubeCourses(query);
+
+  const allCourses = [...local, ...udemy, ...coursera, ...youtube];
+
+  // Cache the result
+  courseCache.set(cacheKey, allCourses);
+
+  return allCourses;
+}
+
 /**
  * Public API exposed to server.js
- * Handles fetching + ranking
+ * Handles fetching + ranking with caching optimization
  */
 async function getCoursesAndRank(userSkills, goal, userProfile) {
   const primarySkill = userSkills.length > 0 ? userSkills[0] : "programming";
   console.log("👉 Primary skill:", primarySkill);
 
-  let allCourses = await getCourses("hybrid", primarySkill);
+  // Use cached hybrid fetching
+  let allCourses = await getHybridCourses(primarySkill);
   console.log("👉 Courses fetched (raw):", allCourses.length);
 
   allCourses = dedupeCourses(allCourses);

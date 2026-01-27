@@ -27,7 +27,7 @@ export default function Home() {
                      hover:shadow-blue-400/50 hover:scale-105 hover:-translate-y-1
                      transition-all duration-200"
           >
-            Get Started 🚀
+            Get Started
           </Link>
 
           {/* Scroll prompt */}

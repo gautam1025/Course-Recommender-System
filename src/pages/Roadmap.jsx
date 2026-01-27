@@ -1,16 +1,23 @@
  // src/pages/Roadmap.jsx
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import axios from "axios";
 
 export default function Roadmap() {
   const [roadmap, setRoadmap] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+  // Memoize URL parameter parsing for performance
+  const queryParams = useMemo(() => {
     const params = new URLSearchParams(window.location.search);
-    const skills = params.get("skills")?.split(",") || [];
-    const goal = params.get("goal") || "upskill";
-    const domain = params.get("domain") || "data_science";
+    return {
+      skills: params.get("skills")?.split(",") || [],
+      goal: params.get("goal") || "upskill",
+      domain: params.get("domain") || "data_science"
+    };
+  }, []);
+
+  useEffect(() => {
+    const { skills, goal, domain } = queryParams;
 
     axios
       .post("http://localhost:5000/api/roadmap", { skills, goal, domain })
@@ -28,7 +35,7 @@ export default function Roadmap() {
       <section className="min-h-screen px-6 py-16 bg-black/50 backdrop-blur-md flex justify-center">
         <div className="w-full max-w-4xl">
           <h1 className="text-3xl md:text-4xl font-bold mb-10 text-yellow-300 text-center drop-shadow-xl">
-            🚀 Your Career Roadmap
+           Your Career Roadmap
           </h1>
 
           {loading ? (

@@ -10,7 +10,7 @@ export default function HowItWorks() {
 
           {/* Heading */}
           <h2 className="text-4xl font-bold mb-8 text-yellow-300 text-center drop-shadow-xl">
-            How It Works ⚙️
+            How It Works 
           </h2>
 
           {/* Steps */}
@@ -34,14 +34,14 @@ export default function HowItWorks() {
               <span className="text-yellow-300 text-2xl">4️⃣</span>
               <p>
                 Receive personalized course suggestions from YouTube, Udemy, Coursera,
-                FreeCodeCamp, and more!
+                FreeCodeCamp, and more.
               </p>
             </div>
 
             <div className="flex gap-4 items-start">
               <span className="text-yellow-300 text-2xl">5️⃣</span>
               <p>
-                Follow a structured learning roadmap📍 and boost your career 🚀
+                Follow a structured learning roadmap and boost your career. 
               </p>
             </div>
           </div>
