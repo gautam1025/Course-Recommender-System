@@ -199,11 +199,10 @@ async function getHybridCourses(query) {
   // Check cache first
   const cached = courseCache.get(cacheKey);
   if (cached) {
-    console.log("✅ Using cached courses for:", query);
     return cached;
   }
 
-  console.log("🔄 Fetching fresh courses for:", query);
+
 
   // Fetch from all sources
   const local = getCoursesFromJSON();
@@ -225,17 +224,13 @@ async function getHybridCourses(query) {
  */
 async function getCoursesAndRank(userSkills, goal, userProfile) {
   const primarySkill = userSkills.length > 0 ? userSkills[0] : "programming";
-  console.log("👉 Primary skill:", primarySkill);
 
   // Use cached hybrid fetching
   let allCourses = await getHybridCourses(primarySkill);
-  console.log("👉 Courses fetched (raw):", allCourses.length);
 
   allCourses = dedupeCourses(allCourses);
-  console.log("👉 Courses after dedupe:", allCourses.length);
 
   const ranked = rankCourses(allCourses, userSkills, goal, userProfile, 30);
-  console.log("👉 Ranked courses:", ranked.length);
 
   return ranked;
 }
