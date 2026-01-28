@@ -73,6 +73,17 @@ app.use(express.json()); // Parse JSON request bodies
 // Multer handles multipart/form-data for resume uploads
 // Files are temporarily stored in 'uploads/' directory
 // ============================================================================
+// 🚀 Ensure uploads directory exists
+const UPLOAD_DIR = path.join(__dirname, "uploads");
+(async () => {
+    try {
+        await fs.access(UPLOAD_DIR);
+    } catch {
+        await fs.mkdir(UPLOAD_DIR);
+        console.log("📂 Created 'uploads/' directory");
+    }
+})();
+
 const upload = multer({ dest: "uploads/" });
 
 //
@@ -119,8 +130,22 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     await fs.unlink(filePath);
 
   } catch (err) {
-    console.error("❌ Error in /api/recommend:", err.message);
-    res.status(500).json({ error: "Failed to process resume" });
+    if (err.response) {
+       console.error("❌ NER Service Error:", err.response.status, err.response.data);
+    } else {
+       console.error("❌ Error in /api/recommend:", err.message);
+    }
+    
+    // Cleanup even on error
+    if (req.file) {
+      try {
+        await fs.unlink(path.join(__dirname, req.file.path));
+      } catch (unlinkErr) {
+        console.error("⚠️ Failed to cleanup file:", unlinkErr.message);
+      }
+    }
+
+    res.status(500).json({ error: "Failed to process resume. See server logs for details." });
   }
 });
 
