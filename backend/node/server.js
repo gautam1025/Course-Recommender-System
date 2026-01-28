@@ -36,24 +36,33 @@ const logger = winston.createLogger({
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",          // local frontend
+      "http://localhost:3000",
+      "https://course-recommender-system-gg.vercel.app" // deployed frontend
+    ],
+    methods: ["GET", "POST"],
+    allowedHeaders: ["Content-Type"],
+  })
+);
+
 app.use(express.json());
 
 // ============================================================================
 // Uploads directory (ABSOLUTE + SAFE)
 // ============================================================================
-const UPLOAD_DIR = path.join(__dirname, "uploads");
+const uploadDir = path.join(__dirname, "uploads");
 
-(async () => {
-  try {
-    await fs.access(UPLOAD_DIR);
-  } catch {
-    await fs.mkdir(UPLOAD_DIR);
-    console.log("📂 Created uploads directory");
-  }
-})();
+if (!require("fs").existsSync(uploadDir)) {
+  require("fs").mkdirSync(uploadDir);
+}
 
-const upload = multer({ dest: UPLOAD_DIR });
+const upload = multer({
+  dest: uploadDir,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
+});
 
 // ============================================================================
 // /api/recommend
@@ -79,7 +88,7 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     const nerResponse = await axios.post(
       process.env.NER_API_URL,
       { text },
-      { timeout: 15000 }
+      { timeout: 30000 }
     );
 
     const userProfile = nerResponse.data || {};
@@ -144,6 +153,10 @@ function detectDomainFromSkills(userSkills) {
 // /api/roadmap
 // ============================================================================
 app.post("/api/roadmap", async (req, res) => {
+  console.log("🌍 Production request received");
+  console.log("File:", req.file?.originalname);
+  console.log("NER URL:", process.env.NER_API_URL);
+
   try {
     const { skills = [], goal = "upskill", domain: selectedDomain } = req.body;
     const userSkills = skills.map(s => s.toLowerCase());
