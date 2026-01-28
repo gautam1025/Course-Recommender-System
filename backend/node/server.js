@@ -85,8 +85,9 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     const { goal } = req.body;
 
     // 1. Extract text from uploaded resume (PDF → raw text)
+    // 1. Extract text from uploaded resume (PDF → raw text)
     const filePath = path.join(__dirname, req.file.path);
-    const dataBuffer = fs.readFileSync(filePath);
+    const dataBuffer = await fs.readFile(filePath);
     const pdfData = await pdfParse(dataBuffer);
     const text = pdfData.text;
 
@@ -115,7 +116,7 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     });
 
     // ✅ Cleanup uploaded file
-    fs.unlinkSync(filePath);
+    await fs.unlink(filePath);
 
   } catch (err) {
     console.error("❌ Error in /api/recommend:", err.message);
