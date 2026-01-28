@@ -64,6 +64,24 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
 });
 
+// 🔥 Warm-up NER Service (Render Cold Start Fix)
+const warmUpNER = async () => {
+  try {
+    console.log("🔥 Warming up NER service...");
+    // Use a short timeout just to wake it up
+    await axios.post(
+      process.env.NER_API_URL, 
+      { text: "warm up" }, 
+      { timeout: 5000 } 
+    );
+    console.log("✅ NER service awake");
+  } catch (err) {
+    // It's okay if it fails/timeouts, it typically means it's waking up
+    console.log("⚠️ NER warm-up ping sent (might be starting)");
+  }
+};
+warmUpNER();
+
 // ============================================================================
 // /api/recommend
 // ============================================================================
@@ -88,7 +106,7 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     const nerResponse = await axios.post(
       process.env.NER_API_URL,
       { text },
-      { timeout: 30000 }
+      { timeout: 60000}
     );
 
     const userProfile = nerResponse.data || {};
@@ -153,9 +171,6 @@ function detectDomainFromSkills(userSkills) {
 // /api/roadmap
 // ============================================================================
 app.post("/api/roadmap", async (req, res) => {
-  console.log("🌍 Production request received");
-  console.log("File:", req.file?.originalname);
-  console.log("NER URL:", process.env.NER_API_URL);
 
   try {
     const { skills = [], goal = "upskill", domain: selectedDomain } = req.body;
