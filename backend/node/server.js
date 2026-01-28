@@ -92,7 +92,7 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     const text = pdfData.text;
 
     // 2. Send resume text → Python NER service
-    const nerResponse = await axios.post("http://localhost:8000/ner", { text });
+    const nerResponse = await axios.post(process.env.NER_API_URL, { text });
 
     const userProfile = nerResponse.data || {};
     const extractedSkills = userProfile.skills || [];
