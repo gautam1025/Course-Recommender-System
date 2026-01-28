@@ -18,8 +18,9 @@ export default function Roadmap() {
   useEffect(() => {
     const { skills, goal, domain } = queryParams;
 
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
     axios
-      .post("http://localhost:5000/api/roadmap", { skills, goal, domain })
+      .post(`${API_URL}/api/roadmap`, { skills, goal, domain })
       .then((res) => {
         setRoadmap(res.data.roadmap || []);
       })
