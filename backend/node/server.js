@@ -67,20 +67,16 @@ const upload = multer({
 // 🔥 Warm-up NER Service (Render Cold Start Fix)
 const warmUpNER = async () => {
   try {
-    console.log("🔥 Warming up NER service...");
-    // Use a short timeout just to wake it up
     await axios.post(
-      process.env.NER_API_URL, 
-      { text: "warm up" }, 
-      { timeout: 5000 } 
+      process.env.NER_API_URL,
+      { text: "warm up" },
+      { timeout: 60000 }
     );
-    console.log("✅ NER service awake");
+    console.log("🔥 NER service warmed up");
   } catch (err) {
-    // It's okay if it fails/timeouts, it typically means it's waking up
-    console.log("⚠️ NER warm-up ping sent (might be starting)");
+    console.log("⚠️ NER warm-up skipped:", err.message);
   }
 };
-warmUpNER();
 
 // ============================================================================
 // /api/recommend
