@@ -42,7 +42,8 @@ app.use(
     origin: [
       "http://localhost:5173",          // local frontend
       "http://localhost:3000",
-      "https://course-recommender-system-gg.vercel.app" // deployed frontend
+      "https://course-recommender-system-gg.vercel.app", // old deployed frontend
+      "https://course-recommender-nine.vercel.app"       // NEW deployed frontend
     ],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
@@ -207,6 +208,8 @@ app.post("/api/roadmap", async (req, res) => {
 // ============================================================================
 // Health check
 // ============================================================================
+app.get("/", (req, res) => res.send("Node API Gateway is running!"));
+
 app.get("/api/health-check", async (req, res) => {
   res.json({
     status: "running",
