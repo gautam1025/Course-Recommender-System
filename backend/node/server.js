@@ -48,7 +48,7 @@ app.use(
 app.use(express.json());
 
 // ============================================================================
-// Uploads directory (ABSOLUTE + SAFE)
+// Uploads handling (TMP FILE SERVERLESS SAFE)
 // ============================================================================
 const uploadDir = os.tmpdir();
 
