@@ -204,13 +204,17 @@ async function getHybridCourses(query) {
 
 
 
-  // Fetch from all sources
-  const local = getCoursesFromJSON();
-  const udemy = await fetchUdemyCourses(query);
-  const coursera = await fetchCourseraCourses(query);
-  const youtube = await fetchYouTubeCourses(query);
+  // Fetch from all sources in parallel
+  console.log("👉 Fetching from all sources...");
+  const [local, udemy, coursera, youtube] = await Promise.all([
+    Promise.resolve(getCoursesFromJSON()),
+    fetchUdemyCourses(query).then(res => { console.log(`✅ Udemy: ${res.length}`); return res; }),
+    fetchCourseraCourses(query).then(res => { console.log(`✅ Coursera: ${res.length}`); return res; }),
+    fetchYouTubeCourses(query).then(res => { console.log(`✅ YouTube: ${res.length}`); return res; })
+  ]);
 
   const allCourses = [...local, ...udemy, ...coursera, ...youtube];
+  console.log(`✅ Total courses found: ${allCourses.length}`);
 
   // Cache the result
   courseCache.set(cacheKey, allCourses);

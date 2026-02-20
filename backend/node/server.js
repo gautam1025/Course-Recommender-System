@@ -12,6 +12,7 @@ const path = require("path");
 const pdfParse = require("pdf-parse");
 const axios = require("axios");
 const winston = require("winston");
+const os = require("os");
 
 const { getCoursesAndRank } = require("./dataService");
 const roadmapTemplates = require("./roadmapTemplates");
@@ -53,11 +54,7 @@ app.use(express.json());
 // ============================================================================
 // Uploads directory (ABSOLUTE + SAFE)
 // ============================================================================
-const uploadDir = path.join(__dirname, "uploads");
-
-if (!require("fs").existsSync(uploadDir)) {
-  require("fs").mkdirSync(uploadDir);
-}
+const uploadDir = os.tmpdir();
 
 const upload = multer({
   dest: uploadDir,
@@ -109,14 +106,17 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     const extractedSkills = userProfile.skills || [];
 
     // 3. Rank courses
+    console.log("👉 Ranking courses...");
     const rawRecs = await getCoursesAndRank(
       extractedSkills,
       goal,
       userProfile
     );
+    console.log(`✅ Ranked ${rawRecs.length} courses`);
 
     const seenCourses = new Set();
     const recommendations = dedupeCourses(rawRecs, seenCourses);
+    console.log(`✅ Final recommendations count: ${recommendations.length}`);
 
     req.app.locals.seenCourses = seenCourses;
 
@@ -127,6 +127,7 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
       recommendations
     });
   } catch (err) {
+    console.error("❌ /api/recommend CRASHED:", err);
     logger.error("❌ /api/recommend failed", err);
     res.status(500).json({
       error: "Failed to process resume. Check backend logs."
