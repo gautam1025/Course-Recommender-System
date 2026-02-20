@@ -126,7 +126,9 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     console.error("❌ /api/recommend CRASHED:", err);
     logger.error("❌ /api/recommend failed", err);
     res.status(500).json({
-      error: "Failed to process resume. Check backend logs."
+      error: "Failed to process resume. Check backend logs.",
+      details: err.message,
+      stack: err.stack
     });
   } finally {
     if (filePath) {
