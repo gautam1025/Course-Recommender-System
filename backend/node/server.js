@@ -39,14 +39,9 @@ const PORT = process.env.PORT || 5000;
 
 app.use(
   cors({
-    origin: [
-      "http://localhost:5173",          // local frontend
-      "http://localhost:3000",
-      "https://course-recommender-system-gg.vercel.app", // old deployed frontend
-      "https://course-recommender-nine.vercel.app"       // NEW deployed frontend
-    ],
-    methods: ["GET", "POST"],
-    allowedHeaders: ["Content-Type"],
+    origin: "*", // Allows any origin in production so different Vercel URLs don't break
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 
