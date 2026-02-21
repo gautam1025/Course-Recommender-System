@@ -11,8 +11,18 @@ const fs = require("fs").promises;
 const path = require("path");
 const pdfParse = require("pdf-parse");
 const axios = require("axios");
+const axiosRetry = require("axios-retry").default;
 const winston = require("winston");
 const os = require("os");
+
+// Configure axios-retry to handle 429 Too Many Requests from Render
+axiosRetry(axios, {
+  retries: 3,
+  retryDelay: axiosRetry.exponentialDelay,
+  retryCondition: (error) => {
+    return axiosRetry.isNetworkOrIdempotentRequestError(error) || error.response?.status === 429;
+  },
+});
 
 const { getCoursesAndRank } = require("./dataService");
 const roadmapTemplates = require("./roadmapTemplates");
