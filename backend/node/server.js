@@ -71,6 +71,10 @@ const warmUpNER = async () => {
   }
 };
 
+// Ping Python service every 14 mins to prevent it from sleeping
+setInterval(warmUpNER, 14 * 60 * 1000);
+warmUpNER(); // initial call on boot
+
 // ============================================================================
 // /api/recommend
 // ============================================================================
@@ -91,11 +95,11 @@ app.post("/api/recommend", upload.single("resume"), async (req, res) => {
     const pdfData = await pdfParse(dataBuffer);
     const text = pdfData.text;
 
-    // 2. Call NER service (with timeout)
+    // 2. Call NER service (with extended timeout for cold starts)
     const nerResponse = await axios.post(
       process.env.NER_API_URL,
       { text },
-      { timeout: 60000}
+      { timeout: 120000 } // 2 minutes to allow Render to wake up
     );
 
     const userProfile = nerResponse.data || {};
