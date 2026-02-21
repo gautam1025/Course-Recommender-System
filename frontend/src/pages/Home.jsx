@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Home() {
+  // Wake up Render free tier upon landing
+  useEffect(() => {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    axios.get(`${API_URL}/api/health-check`).catch(() => { });
+  }, []);
   return (
     <div className="w-full">
       {/* Hero Section */}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function UploadResume() {
@@ -7,6 +7,12 @@ export default function UploadResume() {
   const [error, setError] = useState("");
   const [goal, setGoal] = useState(""); // enhance / switch
   const [domain, setDomain] = useState(""); // only if switch
+
+  // Wake up Render free tier upon load
+  useEffect(() => {
+    const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+    axios.get(`${API_URL}/api/health-check`).catch(() => { });
+  }, []);
 
   const handleSubmit = async () => {
     if (!resume) {
