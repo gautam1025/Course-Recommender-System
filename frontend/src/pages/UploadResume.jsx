@@ -54,8 +54,7 @@ export default function UploadResume() {
       }
 
       window.location.href = redirectUrl;
-    } catch (err) {
-      console.error("Upload failed", err);
+    } catch {
       setError("Something went wrong. Please try again.");
     } finally {
       setLoading(false);

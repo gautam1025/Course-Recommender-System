@@ -1,23 +1,14 @@
 const fs = require("fs");
 const path = require("path");
 const NodeCache = require("node-cache");
-
-// Initialize cache with 10-minute TTL (600 seconds)
-const courseCache = new NodeCache({ stdTTL: 600, checkperiod: 120 });
-
-// Remove duplicate courses
 const { dedupeCourses } = require("./utils/dedupe");
-
-// Import modular fetchers
 const { fetchUdemyCourses } = require("./fetchers/udemy");
 const { fetchCourseraCourses } = require("./fetchers/coursera");
 const { fetchYouTubeCourses } = require("./fetchers/youtube");
 
-// Path to fallback JSON
+const courseCache = new NodeCache({ stdTTL: 600, checkperiod: 120 });
 const COURSES_JSON = path.join(__dirname, "courses.json");
 
-//
-// ---------- Helpers ----------
 function normalizeCourse(course, platform) {
   const rawPrice = course.price || "Free";
   let numericPrice = 0;
@@ -164,13 +155,11 @@ function rankCourses(courses, userSkills, goal, userProfile, topN = 20) {
 }
 
 
-// ---------- Local Fallback ----------
 function getCoursesFromJSON() {
   try {
     const data = fs.readFileSync(COURSES_JSON, "utf-8");
     return JSON.parse(data).map((c) => normalizeCourse(c, c.platform || "Local"));
-  } catch (err) {
-    console.error("❌ Error loading local courses:", err);
+  } catch {
     return [];
   }
 }
@@ -192,51 +181,28 @@ async function getCourses(source = "json", query = "python") {
   return [...local, ...udemy, ...coursera, ...youtube];
 }
 
-// Cached hybrid course fetching to reduce API calls
 async function getHybridCourses(query) {
   const cacheKey = `hybrid_${query}`;
-
-  // Check cache first
   const cached = courseCache.get(cacheKey);
-  if (cached) {
-    return cached;
-  }
+  if (cached) return cached;
 
-
-
-  // Fetch from all sources in parallel
-  console.log("👉 Fetching from all sources...");
   const [local, udemy, coursera, youtube] = await Promise.all([
     Promise.resolve(getCoursesFromJSON()),
-    fetchUdemyCourses(query).then(res => { console.log(`✅ Udemy: ${res.length}`); return res; }),
-    fetchCourseraCourses(query).then(res => { console.log(`✅ Coursera: ${res.length}`); return res; }),
-    fetchYouTubeCourses(query).then(res => { console.log(`✅ YouTube: ${res.length}`); return res; })
+    fetchUdemyCourses(query),
+    fetchCourseraCourses(query),
+    fetchYouTubeCourses(query),
   ]);
 
   const allCourses = [...local, ...udemy, ...coursera, ...youtube];
-  console.log(`✅ Total courses found: ${allCourses.length}`);
-
-  // Cache the result
   courseCache.set(cacheKey, allCourses);
-
   return allCourses;
 }
 
-/**
- * Public API exposed to server.js
- * Handles fetching + ranking with caching optimization
- */
 async function getCoursesAndRank(userSkills, goal, userProfile) {
   const primarySkill = userSkills.length > 0 ? userSkills[0] : "programming";
-
-  // Use cached hybrid fetching
   let allCourses = await getHybridCourses(primarySkill);
-
   allCourses = dedupeCourses(allCourses);
-
-  const ranked = rankCourses(allCourses, userSkills, goal, userProfile, 30);
-
-  return ranked;
+  return rankCourses(allCourses, userSkills, goal, userProfile, 30);
 }
 
 module.exports = { getCoursesAndRank };

@@ -1,9 +1,5 @@
 const axios = require("axios");
 
-/**
- * Fetch Coursera courses via Public API
- * Docs: https://api.coursera.org/api/courses.v1?q=search&query=python
- */
 async function fetchCourseraCourses(query = "python") {
   try {
     const res = await axios.get(
@@ -17,13 +13,12 @@ async function fetchCourseraCourses(query = "python") {
     return res.data.elements.map((course) => ({
       title: course.name,
       platform: "Coursera",
-      price: "Varies", // Coursera doesn't expose price via API
+      price: "Varies",
       skills: [query],
-      level: "Beginner", // Placeholder (could be enhanced via NLP later)
+      level: "Beginner",
       link: `https://www.coursera.org/learn/${course.slug}`,
     }));
-  } catch (err) {
-    //console.error("❌ Coursera fetch failed:", err.message);
+  } catch {
     return [];
   }
 }

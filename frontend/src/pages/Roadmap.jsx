@@ -24,9 +24,7 @@ export default function Roadmap() {
       .then((res) => {
         setRoadmap(res.data.roadmap || []);
       })
-      .catch((err) => {
-        console.error("❌ Roadmap fetch failed:", err.message);
-      })
+      .catch(() => { })
       .finally(() => setLoading(false));
   }, [queryParams]);
 

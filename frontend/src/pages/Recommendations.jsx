@@ -40,15 +40,11 @@ export default function Recommendations() {
       });
   }, [courses, platformFilter, sortOrder]);
 
-  // ✅ Split into free vs paid
-  const freeCourses = filteredCourses.filter((c) =>
-    c.price.toLowerCase().includes("free")
-  );
-  const paidCourses = filteredCourses.filter(
-    (c) => !c.price.toLowerCase().includes("free")
-  );
+  const { freeCourses, paidCourses } = useMemo(() => ({
+    freeCourses: filteredCourses.filter((c) => c.price.toLowerCase().includes("free")),
+    paidCourses: filteredCourses.filter((c) => !c.price.toLowerCase().includes("free")),
+  }), [filteredCourses]);
 
-  // ✅ Reset filters with memoization
   const resetFilters = useCallback(() => {
     setPlatformFilter("");
     setSortOrder("");
