@@ -46,4 +46,4 @@ def analyze_resume(data: ResumeText):
 
 @app.get("/")
 def root():
-    return {"message": "NER Service running"}
+    return {"message": "NER Service running. Go back and upload your resume."}

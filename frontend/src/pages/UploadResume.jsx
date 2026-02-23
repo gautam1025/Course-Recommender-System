@@ -7,12 +7,27 @@ export default function UploadResume() {
   const [error, setError] = useState("");
   const [goal, setGoal] = useState(""); // enhance / switch
   const [domain, setDomain] = useState(""); // only if switch
+  const [nerStatus, setNerStatus] = useState("idle"); // idle | waking | ready
 
-  // Wake up Render free tier upon load
+  // Wake up Node backend upon load
   useEffect(() => {
     const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
     axios.get(`${API_URL}/api/health-check`).catch(() => { });
   }, []);
+
+  const NER_URL = "https://course-recommender-system-py.onrender.com";
+
+  const handleWakeNer = async () => {
+    if (nerStatus !== "idle") return;
+    setNerStatus("waking");
+    try {
+      await axios.get(`${NER_URL}/`, { timeout: 60000 });
+      setNerStatus("ready");
+    } catch {
+      // Service may still be starting; mark ready optimistically after timeout
+      setNerStatus("ready");
+    }
+  };
 
   const handleSubmit = async () => {
     if (!resume) {
@@ -157,7 +172,24 @@ export default function UploadResume() {
           disabled={loading}
           className="w-full btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
         >
-          {loading ? "Processing..." : "Generate Roadmap"}
+          {loading ? "Processing..." : "Generate Recommendations"}
+        </button>
+
+        {/* Activate NER Service button */}
+        <button
+          onClick={handleWakeNer}
+          disabled={nerStatus !== "idle"}
+          className={`w-full mt-3 py-3 px-4 rounded-xl text-sm font-semibold border transition-all duration-500
+            ${nerStatus === "idle"
+              ? "bg-red-600/20 text-red-400 border-red-500/50 hover:bg-red-600/30 hover:text-red-300 cursor-pointer"
+              : nerStatus === "waking"
+                ? "bg-yellow-600/20 text-yellow-300 border-yellow-500/50 cursor-not-allowed animate-pulse"
+                : "bg-green-600/20 text-green-400 border-green-500/50 cursor-not-allowed"
+            }`}
+        >
+          {nerStatus === "idle" && "⚡ Activate NER Service"}
+          {nerStatus === "waking" && "⏳ Waking up… (may take ~30s)"}
+          {nerStatus === "ready" && "✅ NER Service Ready"}
         </button>
 
         {/* Error */}
